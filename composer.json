@@ -1,0 +1,22 @@
+{
+    "name": "trendyminds/orbit-statamic",
+    "autoload": {
+        "psr-4": {
+            "Trendyminds\\Orbit\\": "src"
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Orbit Statamic",
+            "description": "Orbit Statamic addon"
+        },
+        "laravel": {
+            "providers": [
+                "Trendyminds\\Orbit\\ServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "laravel/pint": "^1.15"
+    }
+}
