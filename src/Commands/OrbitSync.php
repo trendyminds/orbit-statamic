@@ -86,7 +86,8 @@ class OrbitSync extends Command
                 'session' => config('session.driver'),
             ],
             'addons' => $addons->map(fn ($addon) => [
-                'name' => $addon->package(),
+                'name' => $addon->name(),
+                'package' => $addon->package(),
                 'version' => $addon->version(),
                 'latest_version' => $addon->latestVersion() && $addon->version() !== $addon->latestVersion()
                         ? $addon->latestVersion()
