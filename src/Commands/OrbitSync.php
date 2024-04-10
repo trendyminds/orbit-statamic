@@ -53,6 +53,7 @@ class OrbitSync extends Command
 
         $info = [
             'orbit_version' => '1.0.0',
+            'type' => 'statamic',
             'has_cms_update' => Marketplace::statamic()->changelog()->availableUpdatesCount() > 0,
             'has_addons_update' => $addons
                 ->filter(fn ($addon) => $addon->latestVersion() && $addon->version() !== $addon->latestVersion())
