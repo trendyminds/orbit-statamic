@@ -6,6 +6,7 @@ use Facades\Statamic\Marketplace\Marketplace;
 use Illuminate\Console\Command;
 use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Statamic\Facades\Addon;
 use Statamic\Statamic;
 
@@ -102,7 +103,7 @@ class OrbitSync extends Command
             $this->info('Data sent to Orbit successfully.');
         } catch (\Exception $e) {
             $this->error('Failed to send data to Orbit.');
-            $this->error($e);
+            Log::error($e->getMessage());
         }
     }
 }
