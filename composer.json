@@ -1,5 +1,6 @@
 {
     "name": "trendyminds/orbit-statamic",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Trendyminds\\Orbit\\": "src"
