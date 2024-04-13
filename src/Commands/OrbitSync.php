@@ -63,7 +63,7 @@ class OrbitSync extends Command
                 'environment' => $this->laravel->environment(),
                 'app_name' => config('app.name'),
                 'url' => config('app.url'),
-                'admin_url' => route('statamic.cp.index'),
+                'admin_url' => config('app.url').'/'.config('statamic.cp.route'),
                 'laravel_version' => $this->laravel->version(),
                 'statamic_version' => Statamic::version().' '.(Statamic::pro() ? 'Pro' : 'Solo'),
                 'php_version' => phpversion(),
