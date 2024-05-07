@@ -94,15 +94,15 @@ class OrbitSync extends Command
                         ? $addon->latestVersion()
                         : null,
             ])->sortBy('name')
-            ->prepend([
-                'name' => 'Statamic',
-                'package' => 'statamic/cms',
-                'version' => Statamic::version(),
-                'latest_version' => Marketplace::statamic()->changelog()->availableUpdatesCount() > 0
-                    ? Marketplace::statamic()->changelog()->latest()->version
-                    : null,
-            ])
-            ->values()->toArray(),
+                ->prepend([
+                    'name' => 'Statamic',
+                    'package' => 'statamic/cms',
+                    'version' => Statamic::version(),
+                    'latest_version' => Marketplace::statamic()->changelog()->availableUpdatesCount() > 0
+                        ? Marketplace::statamic()->changelog()->latest()->version
+                        : null,
+                ])
+                ->values()->toArray(),
         ];
 
         try {
