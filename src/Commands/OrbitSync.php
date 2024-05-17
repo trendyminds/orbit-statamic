@@ -77,6 +77,7 @@ class OrbitSync extends Command
                 'addons' => $addons->count(),
                 'stache_watcher' => config('statamic.stache.watcher') ? true : false,
                 'static_caching' => config('statamic.static_caching.strategy') ? true : false,
+                'control_panel_access' => config('statamic.cp.enabled'),
             ],
             'drivers' => [
                 'cache' => config('cache.default'),

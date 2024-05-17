@@ -17,7 +17,7 @@
             ]
         }
     },
-    "version": "1.1.0",
+    "version": "1.1.1",
     "require": {
         "php": "^8.2",
         "statamic/cms": "^4.0|^5.0"
