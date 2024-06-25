@@ -8,6 +8,7 @@ use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Statamic\Facades\Addon;
+use Statamic\Facades\Stache;
 use Statamic\Statamic;
 
 class OrbitSync extends Command
@@ -75,7 +76,7 @@ class OrbitSync extends Command
             'statamic' => [
                 'antlers' => config('statamic.antlers.version'),
                 'addons' => $addons->count(),
-                'stache_watcher' => config('statamic.stache.watcher') ? true : false,
+                'stache_watcher' => Stache::isWatcherEnabled(),
                 'static_caching' => config('statamic.static_caching.strategy') ? true : false,
                 'control_panel_access' => config('statamic.cp.enabled'),
             ],
