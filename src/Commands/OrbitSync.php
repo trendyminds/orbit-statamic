@@ -85,14 +85,14 @@ class OrbitSync extends Command
         ];
 
         try {
-            Http::acceptJson()->post('https://orbit.test/api/transmit', [
+            Http::acceptJson()->post('https://orbit.trendyminds.com/api/transmit', [
                 'key' => getenv('ORBIT_KEY'),
                 ...$data,
             ])->throw()->json();
 
             $this->info('Data sent to Orbit successfully.');
         } catch (\Exception $e) {
-            $this->error($e->getMessage());
+            $this->error('Failed to send data to Orbit');
             Log::error($e->getMessage());
         }
     }
