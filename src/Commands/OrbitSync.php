@@ -51,44 +51,21 @@ class OrbitSync extends Command
      */
     public function handle()
     {
-        $addons = Addon::all();
-
-        $info = [
-            'orbit_version' => '1.0.0',
-            'type' => 'statamic',
-            'has_cms_update' => Marketplace::statamic()->changelog()->availableUpdatesCount() > 0,
-            'has_addons_update' => $addons
-                ->filter(fn ($addon) => $addon->latestVersion() && $addon->version() !== $addon->latestVersion())
-                ->isNotEmpty(),
-            'app' => [
-                'environment' => $this->laravel->environment(),
-                'app_name' => config('app.name'),
-                'url' => config('app.url'),
-                'admin_url' => config('app.url').'/'.config('statamic.cp.route'),
-                'laravel_version' => $this->laravel->version(),
-                'statamic_version' => Statamic::version().' '.(Statamic::pro() ? 'Pro' : 'Solo'),
-                'php_version' => phpversion(),
-                'composer_version' => $this->composer->getVersion() ?? 'N/A',
-                'debug_mode' => config('app.debug'),
-                'maintenance_mode' => $this->laravel->isDownForMaintenance(),
-                'ray_enabled' => env('RAY_ENABLED'),
-            ],
-            'statamic' => [
-                'antlers' => config('statamic.antlers.version'),
-                'addons' => $addons->count(),
-                'stache_watcher' => Stache::isWatcherEnabled(),
-                'static_caching' => config('statamic.static_caching.strategy') ? true : false,
-                'control_panel_access' => config('statamic.cp.enabled'),
-            ],
-            'drivers' => [
-                'cache' => config('cache.default'),
-                'database' => config('database.default'),
-                'mail' => config('mail.default'),
-                'queue' => config('queue.default'),
-                'scout' => config('scout.driver'),
-                'session' => config('session.driver'),
-            ],
-            'addons' => $addons->map(fn ($addon) => [
+        $data = [
+            'url' => config('app.url'),
+            'admin_url' => config('app.url').'/'.config('statamic.cp.route'),
+            'php_version' => phpversion(),
+            'composer_version' => $this->composer->getVersion() ?? 'N/A',
+            'debug_mode' => config('app.debug'),
+            'maintenance_mode' => $this->laravel->isDownForMaintenance(),
+            'ray_enabled' => (bool) env('RAY_ENABLED'),
+            'platform' => 'Laravel',
+            'platform_version' => $this->laravel->version(),
+            'cms' => 'Statamic',
+            'cms_version' => Statamic::version().' '.(Statamic::pro() ? 'Pro' : 'Solo'),
+            'static_caching' => config('statamic.static_caching.strategy') ? true : false,
+            'stache_watcher' => Stache::isWatcherEnabled(),
+            'addons' => Addon::all()->map(fn ($addon) => [
                 'name' => $addon->name(),
                 'package' => $addon->package(),
                 'version' => $addon->version(),
@@ -108,14 +85,14 @@ class OrbitSync extends Command
         ];
 
         try {
-            Http::acceptJson()->post('https://orbit.trendyminds.com/api/transmit', [
+            Http::acceptJson()->post('https://orbit.test/api/transmit', [
                 'key' => getenv('ORBIT_KEY'),
-                'info' => $info,
+                ...$data,
             ])->throw()->json();
 
             $this->info('Data sent to Orbit successfully.');
         } catch (\Exception $e) {
-            $this->error('Failed to send data to Orbit.');
+            $this->error($e->getMessage());
             Log::error($e->getMessage());
         }
     }
