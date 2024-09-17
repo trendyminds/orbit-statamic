@@ -92,7 +92,7 @@ class OrbitSync extends Command
 
             $this->info('Data sent to Orbit successfully.');
         } catch (\Exception $e) {
-            $this->error('Failed to send data to Orbit');
+            $this->error('Failed to send data to Orbit.');
             Log::error($e->getMessage());
         }
     }
