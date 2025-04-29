@@ -85,7 +85,7 @@ class OrbitSync extends Command
         ];
 
         try {
-            Http::acceptJson()->post('https://orbit.trendyminds.com/api/transmit', [
+            Http::acceptJson()->post('https://kamaji.trendyminds.com/api/transmit', [
                 'key' => getenv('ORBIT_KEY'),
                 ...$data,
             ])->throw()->json();
