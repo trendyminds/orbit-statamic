@@ -69,7 +69,7 @@ class OrbitSync extends Command
                 'name' => $addon->name(),
                 'package' => $addon->package(),
                 'version' => $addon->version(),
-                'latest_version' => $addon->latestVersion() && $addon->version() !== $addon->latestVersion()
+                'latest_version' => $addon->latestVersion() && version_compare($addon->latestVersion(), $addon->version(), '>')
                         ? $addon->latestVersion()
                         : null,
             ])->sortBy('name')
