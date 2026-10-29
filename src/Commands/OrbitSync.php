@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Statamic\Facades\Addon;
 use Statamic\Facades\Stache;
 use Statamic\Statamic;
+use Statamic\Updater\UpdatesOverview;
 
 class OrbitSync extends Command
 {
@@ -63,6 +64,9 @@ class OrbitSync extends Command
             'platform_version' => $this->laravel->version(),
             'cms' => 'Statamic',
             'cms_version' => Statamic::version().' '.(Statamic::pro() ? 'Pro' : 'Solo'),
+            'has_critical_updates' => method_exists(UpdatesOverview::class, 'hasSecurityUpdate')
+                ? app(UpdatesOverview::class)->hasSecurityUpdate()
+                : false,
             'static_caching' => config('statamic.static_caching.strategy') ? true : false,
             'stache_watcher' => Stache::isWatcherEnabled(),
             'addons' => Addon::all()->map(fn ($addon) => [
